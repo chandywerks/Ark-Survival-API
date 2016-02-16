@@ -1,7 +1,7 @@
 Ark-API
 =================
 
-REST API for the Ark: Survival server with Mojolicious. This is a work in progress.
+REST API for the Ark: Survival rcon server with Mojolicious. This is a work in progress.
 
 ### DEPENDENCIES
 * Mojolicious
