@@ -1,4 +1,4 @@
-Ark-API
+Ark-Survival-API
 =================
 
 REST API for the Ark: Survival rcon server with Mojolicious. This is a work in progress.
