@@ -1,3 +1,4 @@
 *.swp
 etc/config.json
 bin/
+hypnotoad.pid

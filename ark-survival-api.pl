@@ -9,7 +9,7 @@ my $cfg = decode_json( $config_file );
 
 app->config(
 	hypnotoad => {
-		listen => ['http://*:8080'],
+		listen => ['http://*:80'],
 		proxy  => 1
 	}
 );
