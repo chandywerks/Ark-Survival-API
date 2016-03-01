@@ -1,11 +1,18 @@
 use Mojolicious::Lite;
 use Mojo::JSON qw(decode_json encode_json);
 
+use Net::RCON;
 use FindBin;
 use File::Slurp;
 
 my $config_file = read_file("$FindBin::Bin/etc/config.json");
 my $cfg = decode_json( $config_file );
+
+my $rcon = Net::RCON->new({
+	host     => $cfg->{host},
+	port     => $cfg->{port},
+	password => $cfg->{password}
+}) or die;
 
 app->config(
 	hypnotoad => {
@@ -14,16 +21,10 @@ app->config(
 	}
 );
 
-helper rcon => sub {
-	my ($self, $cmd) = @_;
-	# TODO implement rcon in perl instead of using this C program
-	return `$FindBin::Bin/bin/rcon -P$cfg->{password} -a$cfg->{host} -p$cfg->{port} $cmd`;
-};
-
 get '/api/listplayers' => sub {
 	my ($self) = @_;
 
-	my $rcon_response = $self->rcon("listplayers");
+	my $rcon_response = $rcon->send("listplayers");
 	my @players;
 
 	foreach my $line ( $rcon_response =~ /\n\d+\.\s+(.+)/g ) {
