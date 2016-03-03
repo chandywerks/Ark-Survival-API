@@ -8,12 +8,6 @@ use File::Slurp;
 my $config_file = read_file("$FindBin::Bin/etc/config.json");
 my $cfg = decode_json( $config_file );
 
-my $rcon = Net::RCON->new({
-	host     => $cfg->{host},
-	port     => $cfg->{port},
-	password => $cfg->{password}
-}) or die;
-
 app->config(
 	hypnotoad => {
 		listen => ['http://*:80'],
@@ -23,6 +17,13 @@ app->config(
 
 get '/api/listplayers' => sub {
 	my ($self) = @_;
+
+	# TODO make the rcon connection always stay open but reconnect if the connection was lost
+	my $rcon = Net::RCON->new({
+		host     => $cfg->{host},
+		port     => $cfg->{port},
+		password => $cfg->{password}
+	}) or die;
 
 	my $rcon_response = $rcon->send("listplayers");
 	my @players;
