@@ -1,7 +1,7 @@
 Ark-Survival-API
 =================
 
-REST API for the Ark: Survival rcon server with Mojolicious. This is a work in progress.
+REST API for the Ark: Survival rcon server. Only a list of players call has been implemented. Leaving it around in case I ever get back to it.
 
 ### DEPENDENCIES
 * Net::RCON
